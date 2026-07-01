@@ -1,0 +1,9 @@
+[package]
+name = "macos-wm"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rdev = { version = "0.5", features = ["unstable_grab"] }
+core-graphics = "0.23"
+core-foundation = "0.9"
