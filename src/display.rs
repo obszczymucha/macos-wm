@@ -67,7 +67,9 @@ fn sorted_displays() -> Option<Vec<(u32, CGRect)>> {
         .map(|id| (*id, CGDisplay::new(*id).bounds()))
         .collect();
 
-    by_y.sort_by(|a, b| a.1.origin.y.partial_cmp(&b.1.origin.y).unwrap());
+    // total_cmp instead of partial_cmp().unwrap(): a NaN display origin (rare,
+    // but possible during a hotplug/driver glitch) must not panic the worker.
+    by_y.sort_by(|a, b| a.1.origin.y.total_cmp(&b.1.origin.y));
     Some(by_y)
 }
 

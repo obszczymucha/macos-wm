@@ -1,5 +1,6 @@
 mod ax;
 mod display;
+mod eventtap;
 mod hotkeys;
 
 pub static DEBUG: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
@@ -19,7 +20,5 @@ fn main() {
         DEBUG.store(true, std::sync::atomic::Ordering::Relaxed);
     }
 
-    if let Err(e) = rdev::grab(hotkeys::callback) {
-        eprintln!("Could not grab the keyboard: {:?}", e);
-    }
+    eventtap::run();
 }
